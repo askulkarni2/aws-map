@@ -29,6 +29,21 @@ carton exec perl -I lib bin/map_network_sgs eu-west-1
 And it will generate three files: `graph.svg`, `graph.dot` and `graph.png`. These
 all have the same contents in different formats SVG, DOT (for graphviz) and PNG
 
+### Docker
+
+#### Build
+```
+docker build --no-cache . -t aws_map
+```
+
+#### Run
+```
+docker run \
+  -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+  -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+  --mount type=bind,source="$(pwd)"/results,target=/root/aws-map/results aws_map us-west-2
+```
+
 ## Understanding the graph
 
 The generated graph attempts to show you your AWS region from a networking perspetive. It shows you what can talk to what, at an IP level.
